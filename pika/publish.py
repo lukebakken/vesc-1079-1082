@@ -15,8 +15,8 @@ parser = argparse.ArgumentParser(
     prog="consume.py", description="consume from inventory-fed"
 )
 parser.add_argument("-i", "--interval", default="1", type=int)
-parser.add_argument("-c", "--msgcount", default="100000", type=int)
-parser.add_argument("-l", "--log-every", default="5000", type=int)
+parser.add_argument("-c", "--msgcount", default="10000", type=int)
+parser.add_argument("-l", "--log-every", default="1000", type=int)
 parser.add_argument("-p", "--port", default="5672", type=int)
 ns = parser.parse_args()
 pub_interval = ns.interval
@@ -33,6 +33,7 @@ parameters = pika.ConnectionParameters(
 )
 connection = pika.BlockingConnection(parameters)
 channel = connection.channel()
+channel.confirm_delivery()
 
 msgprops = pika.BasicProperties(
     content_type="text/plain", delivery_mode=pika.DeliveryMode.Persistent

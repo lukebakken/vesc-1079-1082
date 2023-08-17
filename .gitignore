@@ -1,2 +1,3 @@
 tmp/
 log*/
+rmq-*/definitions.json
