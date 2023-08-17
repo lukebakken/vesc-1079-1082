@@ -27,11 +27,11 @@
         "prefetch-count": 200,
         "reconnect-delay": 10,
         "trust-user-id": true,
-        "uri": "amqp://haproxy-wdc:5672/%2F?heartbeat=45&connection_timeout=15000"
+        "uri": "amqp://haproxy-hdc:5672/%2F?heartbeat=45&connection_timeout=15000"
       },
       "vhost": "/",
       "component": "federation-upstream",
-      "name": "fed-webster"
+      "name": "fed-henrietta"
     },
     {
       "value": {
@@ -51,17 +51,17 @@
   "policies": [
     {
       "vhost": "/",
-      "name": "quorumfedqueues",
+      "name": "fedqueues",
       "pattern": ".*-fed$",
       "apply-to": "queues",
       "definition": {
         "federation-upstream-set": "all",
         "max-length": 1500000,
         "max-length-bytes": 1050000000,
-        "queue-leader-locator": "balanced"
+        "ha-mode": "all"
       },
       "priority": 25
-    }
+    },
   ],
   "queues": [
     {
@@ -72,7 +72,7 @@
       "arguments": {
         "x-dead-letter-exchange": "inventory-dlq",
         "x-message-ttl": 86400000,
-        "x-queue-type": "@@RABBITMQ_QUEUE_TYPE@@"
+        "x-queue-type": "classic"
       }
     },
     {
@@ -83,7 +83,7 @@
       "arguments": {
         "x-message-ttl": 86400000,
         "x-overflow": "drop-head",
-        "x-queue-type": "@@RABBITMQ_QUEUE_TYPE@@"
+        "x-queue-type": "classic"
       }
     }
   ],

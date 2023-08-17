@@ -58,14 +58,14 @@
   "policies": [
     {
       "vhost": "/",
-      "name": "quorumfedqueues",
+      "name": "fedqueues",
       "pattern": ".*-fed$",
       "apply-to": "queues",
       "definition": {
         "federation-upstream-set": "all",
         "max-length": 1500000,
         "max-length-bytes": 1050000000,
-        "queue-leader-locator": "balanced"
+        "ha-mode": "all"
       },
       "priority": 25
     },
@@ -79,7 +79,7 @@
       "arguments": {
         "x-dead-letter-exchange": "inventory-dlq",
         "x-message-ttl": 86400000,
-        "x-queue-type": "@@RABBITMQ_QUEUE_TYPE@@"
+        "x-queue-type": "classic"
       }
     },
     {
@@ -90,7 +90,7 @@
       "arguments": {
         "x-message-ttl": 86400000,
         "x-overflow": "drop-head",
-        "x-queue-type": "@@RABBITMQ_QUEUE_TYPE@@"
+        "x-queue-type": "classic"
       }
     }
   ],

@@ -4,7 +4,7 @@ set -eu
 
 for DC in hdc wdc odc
 do
-    defs_in="rmq-$DC/definitions.json.in"
+    defs_in="rmq-$DC/definitions.json.$RABBITMQ_QUEUE_TYPE"
     defs_out="rmq-$DC/definitions.json"
-    sed -e "s/@@RABBITMQ_QUEUE_TYPE@@/$RABBITMQ_QUEUE_TYPE/g" $defs_in > $defs_out
+    cp -vf $defs_in $defs_out
 done
