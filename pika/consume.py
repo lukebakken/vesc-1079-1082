@@ -14,8 +14,10 @@ parser = argparse.ArgumentParser(
     prog="consume.py", description="consume from inventory-fed"
 )
 parser.add_argument("-p", "--port", default="5672", type=int)
+parser.add_argument("-l", "--log-every", default="1000", type=int)
 ns = parser.parse_args()
 rmq_port = ns.port
+log_every = ns.log_every
 
 credentials = pika.PlainCredentials("guest", "guest")
 parameters = pika.ConnectionParameters(
@@ -31,7 +33,7 @@ channel.basic_qos(prefetch_count=1)
 
 def on_message(ch, method_frame, _header_frame, body):
     delivery_tag = method_frame.delivery_tag
-    if delivery_tag % 1000 == 0:
+    if delivery_tag % log_every == 0:
         logger.info("consumed message: %d %s", delivery_tag, body)
     ch.basic_ack(delivery_tag)
 
