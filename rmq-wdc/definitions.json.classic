@@ -31,23 +31,10 @@
       },
       "vhost": "/",
       "component": "federation-upstream",
-      "name": "fed-henrietta"
-    },
-    {
-      "value": {
-        "max-hops": 1,
-        "prefetch-count": 200,
-        "reconnect-delay": 10,
-        "trust-user-id": true,
-        "uri": "amqp://haproxy-odc:5672/%2F?heartbeat=45&connection_timeout=15000"
-      },
-      "vhost": "/",
-      "component": "federation-upstream",
-      "name": "fed-omaha"
+      "name": "fed-hdc"
     }
   ],
-  "global_parameters": [
-  ],
+  "global_parameters": [],
   "policies": [
     {
       "vhost": "/",
