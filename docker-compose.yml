@@ -1,21 +1,21 @@
 version: '3'
 
 services:
-  rmq0-hdc: &rmq-hdc
+  rmq0-hdc:
     build: rmq-hdc
     hostname: rmq0-hdc
     ports:
       # HOST:CONTAINER
       - 15672:15672
       - 5672:5672
-  rmq0-wdc: &rmq-wdc
+  rmq0-wdc:
     build: rmq-wdc
     hostname: rmq0-wdc
     ports:
       # HOST:CONTAINER
       - 15673:15672
       - 5673:5672
-  rmq0-odc: &rmq-odc
+  rmq0-odc:
     build: rmq-odc
     hostname: rmq0-odc
     ports:
