@@ -14,16 +14,18 @@ parser = argparse.ArgumentParser(
     prog="consume.py", description="consume from inventory-fed"
 )
 parser.add_argument("-p", "--port", default="5672", type=int)
+parser.add_argument("-v", "--vhost", default="/")
 parser.add_argument("-l", "--log-every", default="1000", type=int)
 ns = parser.parse_args()
 rmq_port = ns.port
 log_every = ns.log_every
+vhost = ns.vhost
 
 credentials = pika.PlainCredentials("guest", "guest")
 parameters = pika.ConnectionParameters(
     host="localhost",
     port=rmq_port,
-    virtual_host="/",
+    virtual_host=vhost,
     credentials=credentials,
 )
 connection = pika.BlockingConnection(parameters)

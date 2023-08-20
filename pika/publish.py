@@ -18,17 +18,19 @@ parser.add_argument("-i", "--interval", default="1", type=int)
 parser.add_argument("-c", "--msgcount", default="10000", type=int)
 parser.add_argument("-l", "--log-every", default="1000", type=int)
 parser.add_argument("-p", "--port", default="5672", type=int)
+parser.add_argument("-v", "--vhost", default="/")
 ns = parser.parse_args()
 pub_interval = ns.interval
 msg_count = ns.msgcount
 rmq_port = ns.port
 log_every = ns.log_every
+vhost = ns.vhost
 
 credentials = pika.PlainCredentials("guest", "guest")
 parameters = pika.ConnectionParameters(
     host="localhost",
     port=rmq_port,
-    virtual_host="/",
+    virtual_host=vhost,
     credentials=credentials,
 )
 connection = pika.BlockingConnection(parameters)

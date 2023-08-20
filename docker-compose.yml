@@ -4,65 +4,20 @@ services:
   rmq0-hdc: &rmq-hdc
     build: rmq-hdc
     hostname: rmq0-hdc
-  rmq1-hdc:
-    <<: *rmq-hdc
-    hostname: rmq1-hdc
-  rmq2-hdc:
-    <<: *rmq-hdc
-    hostname: rmq2-hdc
-  rmq0-wdc: &rmq-wdc
-    build: rmq-wdc
-    hostname: rmq0-wdc
-  rmq1-wdc:
-    <<: *rmq-wdc
-    hostname: rmq1-wdc
-  rmq2-wdc:
-    <<: *rmq-wdc
-    hostname: rmq2-wdc
-  rmq0-odc: &rmq-odc
-    build: rmq-odc
-    hostname: rmq0-odc
-  rmq1-odc:
-    <<: *rmq-odc
-    hostname: rmq1-odc
-  rmq2-odc:
-    <<: *rmq-odc
-    hostname: rmq2-odc
-  haproxy-hdc:
-    image: haproxy:latest
-    hostname: haproxy-hdc
-    volumes:
-      - ./haproxy-hdc.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro
-    depends_on:
-      - rmq0-hdc
-      - rmq1-hdc
-      - rmq2-hdc
     ports:
       # HOST:CONTAINER
       - 15672:15672
       - 5672:5672
-  haproxy-wdc:
-    image: haproxy:latest
-    hostname: haproxy-wdc
-    volumes:
-      - ./haproxy-wdc.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro
-    depends_on:
-      - rmq0-wdc
-      - rmq1-wdc
-      - rmq2-wdc
+  rmq0-wdc: &rmq-wdc
+    build: rmq-wdc
+    hostname: rmq0-wdc
     ports:
       # HOST:CONTAINER
       - 15673:15672
       - 5673:5672
-  haproxy-odc:
-    image: haproxy:latest
-    hostname: haproxy-odc
-    volumes:
-      - ./haproxy-odc.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro
-    depends_on:
-      - rmq0-odc
-      - rmq1-odc
-      - rmq2-odc
+  rmq0-odc: &rmq-odc
+    build: rmq-odc
+    hostname: rmq0-odc
     ports:
       # HOST:CONTAINER
       - 15674:15672
