@@ -1,0 +1,225 @@
+{
+  "rabbit_version": "3.11.19",
+  "rabbitmq_version": "3.11.19",
+  "product_name": "RabbitMQ",
+  "product_version": "3.11.19",
+  "users": [
+  ],
+  "vhosts": [
+    {
+      "name": "vhost0"
+    },
+    {
+      "name": "vhost1"
+    },
+    {
+      "name": "vhost2"
+    },
+  ],
+  "permissions": [
+    {
+      "user": "guest",
+      "vhost": "vhost0",
+      "configure": ".*",
+      "write": ".*",
+      "read": ".*"
+    },
+    {
+      "user": "guest",
+      "vhost": "vhost1",
+      "configure": ".*",
+      "write": ".*",
+      "read": ".*"
+    },
+    {
+      "user": "guest",
+      "vhost": "vhost2",
+      "configure": ".*",
+      "write": ".*",
+      "read": ".*"
+    }
+  ],
+  "topic_permissions": [],
+  "parameters": [
+    {
+      "value": {
+        "max-hops": 1,
+        "prefetch-count": 200,
+        "reconnect-delay": 10,
+        "trust-user-id": true,
+        "uri": "amqp://localhost:5672/vhost1?heartbeat=45&connection_timeout=15000"
+      },
+      "vhost": "vhost0",
+      "component": "federation-upstream",
+      "name": "vhost1"
+    },
+    {
+      "value": {
+        "max-hops": 1,
+        "prefetch-count": 200,
+        "reconnect-delay": 10,
+        "trust-user-id": true,
+        "uri": "amqp://localhost:5672/vhost2?heartbeat=45&connection_timeout=15000"
+      },
+      "vhost": "vhost0",
+      "component": "federation-upstream",
+      "name": "vhost2"
+    },
+    {
+      "value": {
+        "max-hops": 1,
+        "prefetch-count": 200,
+        "reconnect-delay": 10,
+        "trust-user-id": true,
+        "uri": "amqp://localhost:5672/vhost0?heartbeat=45&connection_timeout=15000"
+      },
+      "vhost": "vhost1",
+      "component": "federation-upstream",
+      "name": "vhost0"
+    },
+    {
+      "value": {
+        "max-hops": 1,
+        "prefetch-count": 200,
+        "reconnect-delay": 10,
+        "trust-user-id": true,
+        "uri": "amqp://localhost:5672/vhost2?heartbeat=45&connection_timeout=15000"
+      },
+      "vhost": "vhost1",
+      "component": "federation-upstream",
+      "name": "vhost2"
+    },
+    {
+      "value": {
+        "max-hops": 1,
+        "prefetch-count": 200,
+        "reconnect-delay": 10,
+        "trust-user-id": true,
+        "uri": "amqp://localhost:5672/vhost0?heartbeat=45&connection_timeout=15000"
+      },
+      "vhost": "vhost2",
+      "component": "federation-upstream",
+      "name": "vhost0"
+    },
+    {
+      "value": {
+        "max-hops": 1,
+        "prefetch-count": 200,
+        "reconnect-delay": 10,
+        "trust-user-id": true,
+        "uri": "amqp://localhost:5672/vhost2?heartbeat=45&connection_timeout=15000"
+      },
+      "vhost": "vhost2",
+      "component": "federation-upstream",
+      "name": "vhost2"
+    }
+  ],
+  "global_parameters": [
+  ],
+  "policies": [
+    {
+      "vhost": "vhost0",
+      "name": "fedqueues",
+      "pattern": ".*-fed$",
+      "apply-to": "queues",
+      "definition": {
+        "federation-upstream-set": "all",
+        "max-length": 1500000,
+        "max-length-bytes": 1050000000
+      },
+      "priority": 25
+    },
+    {
+      "vhost": "vhost1",
+      "name": "fedqueues",
+      "pattern": ".*-fed$",
+      "apply-to": "queues",
+      "definition": {
+        "federation-upstream-set": "all",
+        "max-length": 1500000,
+        "max-length-bytes": 1050000000
+      },
+      "priority": 25
+    },
+    {
+      "vhost": "vhost2",
+      "name": "fedqueues",
+      "pattern": ".*-fed$",
+      "apply-to": "queues",
+      "definition": {
+        "federation-upstream-set": "all",
+        "max-length": 1500000,
+        "max-length-bytes": 1050000000
+      },
+      "priority": 25
+    }
+  ],
+  "queues": [
+    {
+      "name": "inventory-fed",
+      "vhost": "vhost0",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {
+        "x-queue-type": "quorum"
+      }
+    },
+    {
+      "name": "inventory-fed",
+      "vhost": "vhost1",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {
+        "x-queue-type": "quorum"
+      }
+    },
+    {
+      "name": "inventory-fed",
+      "vhost": "vhost2",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {
+        "x-queue-type": "quorum"
+      }
+    }
+  ],
+  "exchanges": [
+    {
+      "name": "inventory",
+      "vhost": "vhost0",
+      "type": "topic",
+      "durable": true,
+      "auto_delete": false,
+      "internal": false,
+      "arguments": {}
+    },
+    {
+      "name": "inventory",
+      "vhost": "vhost1",
+      "type": "topic",
+      "durable": true,
+      "auto_delete": false,
+      "internal": false,
+      "arguments": {}
+    },
+    {
+      "name": "inventory",
+      "vhost": "vhost2",
+      "type": "topic",
+      "durable": true,
+      "auto_delete": false,
+      "internal": false,
+      "arguments": {}
+    }
+  ],
+  "bindings": [
+    {
+      "source": "inventory",
+      "vhost": "vhost0",
+      "destination": "inventory-fed",
+      "destination_type": "queue",
+      "routing_key": "#",
+      "arguments": {}
+    }
+  ]
+}
