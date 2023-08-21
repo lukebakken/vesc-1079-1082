@@ -47,30 +47,6 @@
         "prefetch-count": 200,
         "reconnect-delay": 10,
         "trust-user-id": true,
-        "uri": "amqp://localhost:5672/vhost1?heartbeat=45&connection_timeout=15000"
-      },
-      "vhost": "vhost0",
-      "component": "federation-upstream",
-      "name": "vhost1"
-    },
-    {
-      "value": {
-        "max-hops": 1,
-        "prefetch-count": 200,
-        "reconnect-delay": 10,
-        "trust-user-id": true,
-        "uri": "amqp://localhost:5672/vhost2?heartbeat=45&connection_timeout=15000"
-      },
-      "vhost": "vhost0",
-      "component": "federation-upstream",
-      "name": "vhost2"
-    },
-    {
-      "value": {
-        "max-hops": 1,
-        "prefetch-count": 200,
-        "reconnect-delay": 10,
-        "trust-user-id": true,
         "uri": "amqp://localhost:5672/vhost0?heartbeat=45&connection_timeout=15000"
       },
       "vhost": "vhost1",
@@ -83,52 +59,16 @@
         "prefetch-count": 200,
         "reconnect-delay": 10,
         "trust-user-id": true,
-        "uri": "amqp://localhost:5672/vhost2?heartbeat=45&connection_timeout=15000"
-      },
-      "vhost": "vhost1",
-      "component": "federation-upstream",
-      "name": "vhost2"
-    },
-    {
-      "value": {
-        "max-hops": 1,
-        "prefetch-count": 200,
-        "reconnect-delay": 10,
-        "trust-user-id": true,
         "uri": "amqp://localhost:5672/vhost0?heartbeat=45&connection_timeout=15000"
       },
       "vhost": "vhost2",
       "component": "federation-upstream",
       "name": "vhost0"
-    },
-    {
-      "value": {
-        "max-hops": 1,
-        "prefetch-count": 200,
-        "reconnect-delay": 10,
-        "trust-user-id": true,
-        "uri": "amqp://localhost:5672/vhost2?heartbeat=45&connection_timeout=15000"
-      },
-      "vhost": "vhost2",
-      "component": "federation-upstream",
-      "name": "vhost2"
     }
   ],
   "global_parameters": [
   ],
   "policies": [
-    {
-      "vhost": "vhost0",
-      "name": "fedqueues",
-      "pattern": ".*-fed$",
-      "apply-to": "queues",
-      "definition": {
-        "federation-upstream-set": "all",
-        "max-length": 1500000,
-        "max-length-bytes": 1050000000
-      },
-      "priority": 25
-    },
     {
       "vhost": "vhost1",
       "name": "fedqueues",
