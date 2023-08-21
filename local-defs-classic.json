@@ -14,7 +14,7 @@
     },
     {
       "name": "vhost2"
-    },
+    }
   ],
   "permissions": [
     {
@@ -123,6 +123,7 @@
       "pattern": ".*-fed$",
       "apply-to": "queues",
       "definition": {
+        "ha-mode": "all",
         "federation-upstream-set": "all",
         "max-length": 1500000,
         "max-length-bytes": 1050000000
@@ -135,6 +136,7 @@
       "pattern": ".*-fed$",
       "apply-to": "queues",
       "definition": {
+        "ha-mode": "all",
         "federation-upstream-set": "all",
         "max-length": 1500000,
         "max-length-bytes": 1050000000
@@ -147,6 +149,7 @@
       "pattern": ".*-fed$",
       "apply-to": "queues",
       "definition": {
+        "ha-mode": "all",
         "federation-upstream-set": "all",
         "max-length": 1500000,
         "max-length-bytes": 1050000000
