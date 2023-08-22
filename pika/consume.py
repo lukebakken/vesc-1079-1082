@@ -16,10 +16,12 @@ parser = argparse.ArgumentParser(
 parser.add_argument("-p", "--port", default="5672", type=int)
 parser.add_argument("-v", "--vhost", default="/")
 parser.add_argument("-l", "--log-every", default="1000", type=int)
+parser.add_argument("-q", "--prefetch", default="1", type=int)
 ns = parser.parse_args()
 rmq_port = ns.port
 log_every = ns.log_every
 vhost = ns.vhost
+prefetch = ns.prefetch
 
 credentials = pika.PlainCredentials("guest", "guest")
 parameters = pika.ConnectionParameters(
@@ -30,7 +32,7 @@ parameters = pika.ConnectionParameters(
 )
 connection = pika.BlockingConnection(parameters)
 channel = connection.channel()
-channel.basic_qos(prefetch_count=1)
+channel.basic_qos(prefetch_count=prefetch)
 
 
 def on_message(ch, method_frame, _header_frame, body):
